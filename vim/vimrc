@@ -146,6 +146,8 @@ colorscheme solarized
 
 "Custom Key Mapping"
 nmap 0 ^
+nmap k gk
+nmap j gj
 imap jk <esc>
 imap kj <esc>
 
