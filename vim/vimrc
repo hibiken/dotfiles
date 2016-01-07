@@ -177,6 +177,10 @@ syntax enable
 set background=dark
 colorscheme solarized
 
+"Color and Font 
+color codeschool
+set guifont=Monaco:h12
+
 "Custom Key Mapping"
 nmap 0 ^
 nmap k gk
