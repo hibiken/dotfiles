@@ -13,6 +13,7 @@ Plugin 'VundleVim/Vundle.vim'
 " The following are examples of different formats supported.
 Plugin 'tpope/vim-rails'
 Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'tpope/vim-surround'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
