@@ -33,6 +33,7 @@ filetype plugin indent on    " required
 let mapleader = "\<Space>"
 "Leader keymapping examples
 nmap <leader>vr :sp $MYVIMRC<cr>
+nmap <leader>h :nohlsearch<cr>
 
 set backspace=2   " Backspace deletes like most programs in insert mode
 set nobackup
@@ -42,6 +43,9 @@ set history=50
 set ruler         " show the cursor position all the time
 set showcmd       " display incomplete commands
 set incsearch     " do incremental searching
+set hlsearch      " do highlight searching
+set ignorecase    " Case insensitive pattern matching
+set smartcase     " Overrides ignorecase if pattern contain upcase
 set laststatus=2  " Always display the status line
 set autowrite     " Automatically :write before running commands
 set relativenumber " diplay relative line number
