@@ -192,7 +192,7 @@ nmap k gk
 nmap j gj
 imap jk <esc>
 imap kj <esc>
-imap <D-s> <esc>:w<cr>
+imap <C-s> <esc>:w<cr>
 
 " Make CtrlP use ag for listing the files. Way faster and no useless files.
 let g:ctrlp_user_command = 'ag %s -l --hidden --nocolor -g ""'
