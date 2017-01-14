@@ -23,8 +23,10 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'elixir-lang/vim-elixir'
+Plugin 'flazz/vim-colorschemes'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
+syntax enable
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
@@ -198,10 +200,11 @@ set diffopt+=vertical
 "Color Scheme"
 syntax enable
 set background=dark
-colorscheme solarized
+"""colorscheme solarized
+colorscheme molokai
 
-"Color and Font 
-color codeschool
+"Color and Font
+"""color codeschool
 set guifont=Monaco:h12
 
 "Custom Key Mapping"
