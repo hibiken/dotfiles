@@ -11,6 +11,8 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 " The following are examples of different formats supported.
+Plugin 'tpope/vim-fugitive'
+Plugin 'vim-ruby/vim-ruby'
 Plugin 'tpope/vim-rails'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'tpope/vim-surround'
@@ -20,11 +22,15 @@ Plugin 'thoughtbot/vim-rspec'
 Plugin 'tpope/vim-dispatch'
 Plugin 'jelera/vim-javascript-syntax'
 Plugin 'pangloss/vim-javascript'
+Plugin 'fatih/vim-go'
 Plugin 'mxw/vim-jsx'
+Plugin 'othree/yajs.vim'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'elixir-lang/vim-elixir'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'jiangmiao/auto-pairs'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 syntax enable
@@ -65,6 +71,7 @@ let g:rspec_runner = "os_x_iterm2"
 
 " No mapping from vim-gitgutter
 let g:gitgutter_map_keys = 0
+nmap <leader>g :GitGutter<CR>
 
 set backspace=2   " Backspace deletes like most programs in insert mode
 set nobackup
@@ -80,6 +87,7 @@ set smartcase     " Overrides ignorecase if pattern contain upcase
 set laststatus=2  " Always display the status line
 set autowrite     " Automatically :write before running commands
 set relativenumber " diplay relative line number
+set autoread
 
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
@@ -127,10 +135,32 @@ set updatetime=250
 augroup END
 
 " Softtabs, 2 spaces
-set tabstop=2
-set shiftwidth=2
-set shiftround
-set expandtab
+"set tabstop=2
+"set shiftwidth=2
+"set shiftround
+"set expandtab
+
+augroup filetypedetect
+  command! -nargs=* -complete=help Help vertical belowright help <args>
+  autocmd FileType help wincmd L
+
+  autocmd BufNewFile,BufRead .tmux.conf*,tmux.conf* setf tmux
+  autocmd BufNewFile,BufRead .nginx.conf*,nginx.conf* setf nginx
+  autocmd BufNewFile,BufRead *.hcl setf conf
+  autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4 
+
+  autocmd BufNewFile,BufRead *.ino setlocal noet ts=4 sw=4 sts=4
+  autocmd BufNewFile,BufRead *.txt setlocal noet ts=4 sw=4
+  autocmd BufNewFile,BufRead *.md setlocal noet ts=4 sw=4
+  autocmd BufNewFile,BufRead *.html setlocal noet ts=4 sw=4
+  autocmd BufNewFile,BufRead *.vim setlocal expandtab shiftwidth=2 tabstop=2
+  autocmd BufNewFile,BufRead *.hcl setlocal expandtab shiftwidth=2 tabstop=2
+  autocmd BufNewFile,BufRead *.sh setlocal expandtab shiftwidth=2 tabstop=2
+  autocmd BufNewFile,BufRead *.proto setlocal expandtab shiftwidth=2 tabstop=2
+
+  autocmd FileType json setlocal expandtab shiftwidth=2 tabstop=2
+  autocmd FileType ruby setlocal expandtab shiftwidth=2 tabstop=2
+augroup END
 
 " Display extra whitespace
 set list listchars=tab:»·,trail:·,nbsp:·
@@ -221,10 +251,11 @@ set diffopt+=vertical
 
 "Color Scheme"
 syntax enable
+set t_Co=256
 set background=dark
-let g:solarized_termcolors=256
-colorscheme solarized
-""" colorscheme molokai
+let g:molokai_original=1
+let g:rehash256 = 1
+colorscheme molokai
 
 "Color and Font
 """color codeschool
@@ -235,8 +266,8 @@ nmap 0 ^
 nmap k gk
 nmap j gj
 nmap <leader>v V
-imap jk <esc>
-imap kj <esc>
+" imap jk <esc>
+" imap kj <esc>
 imap <C-s> <esc>:w<cr>
 
 " Make CtrlP use ag for listing the files. Way faster and no useless files.
@@ -248,3 +279,17 @@ let g:ctrlp_use_caching = 0
 if filereadable($HOME . "/.vimrc.local")
   source ~/.vimrc.local
 endif
+
+" automatically rebalance windows on vim resize
+autocmd VimResized * :wincmd =
+
+" zoom a vim pane, <C-w>= to re-balance
+nnoremap <leader>- :wincmd _<cr>:wincmd \|<cr>
+nnoremap <leader>= :wincmd =<cr>
+
+"Edit another file in the same directory as the current file
+" 'c' for current directory
+map <leader>ec :e <C-R>=escape(expand("%:p:h"), ' ') . '/'<CR>
+map <leader>sc :split <C-R>=escape(expand("%:p:h"), ' ') . '/'<CR>
+map <leader>vc :vnew <C-R>=escape(expand("%:p:h"), ' ') . '/'<CR>
+let g:jsx_ext_required = 0 " Allow JSX in normal JS files
