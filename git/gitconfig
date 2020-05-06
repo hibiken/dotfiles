@@ -1,0 +1,24 @@
+[user]
+	name = Ken Hibino
+	email = ken.hibino7@gmail.com
+[push]
+	default = simple
+[alias]
+	co = checkout
+	s = status
+	sla = log --oneline --decorate --graph --all
+	unstage = reset
+	uncommit = reset --soft HEAD^
+	tlog = log --pretty=format:'%C(yellow)%h%C(reset) - %an [%C(green)%ar%C(reset)] %s'
+	glog = log -E -i --grep
+	b = branch
+	ci = commit -m
+	praise = blame
+	amend = commit --amend --no-edit
+    reword = commit --amend
+[core]
+  editor = vim
+	excludesfile = /Users/kenhibino/.gitignore_global
+	autocrlf = input
+[pull]
+	rebase = true
