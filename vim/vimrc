@@ -19,6 +19,8 @@ Plugin 'cespare/vim-toml'
 Plugin 'rhysd/vim-clang-format'
 call vundle#end()
 
+"=== Add Packages ===
+packadd! matchit " :help matchit for more info
 
 syntax enable
 
@@ -57,7 +59,7 @@ set history=200
 set ruler         " show the cursor position all the time
 set showcmd       " display incomplete commands
 set incsearch     " do incremental searching
-set hlsearch      " do highlight searching
+set hlsearch      " enable highlight searching
 set ignorecase    " Case insensitive pattern matching
 set smartcase     " Overrides ignorecase if pattern contain upcase
 set laststatus=2  " Always display the status line
@@ -130,7 +132,7 @@ augroup filetypedetect
   autocmd FileType sql setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType java setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType go setlocal ts=4 sts=4 sw=4 noexpandtab
-  autocmd FileType cpp setlocal ts=4 sts=4 sw=4 noexpandtab
+  autocmd FileType cpp setlocal ts=2 sts=2 sw=2 noexpandtab
   autocmd Filetype javascript setlocal ts=2 sts=2 sw=2 expandtab
 augroup END
 
@@ -152,12 +154,6 @@ if executable('ag')
   let g:ctrlp_use_caching = 0
 
 endif
-
-" Get off my lawn
-nnoremap <Left> :echoe "Use h"<CR>
-nnoremap <Right> :echoe "Use l"<CR>
-nnoremap <Up> :echoe "Use k"<CR>
-nnoremap <Down> :echoe "Use j"<CR>
 
 
 " ===SEARCH===
@@ -198,13 +194,6 @@ set background=dark
 let g:rehash256 = 1
 colorscheme gruvbox
 
-"Custom Key Mapping"
-nmap 0 ^
-nmap k gk
-nmap j gj
-nmap <leader>v V
-imap <C-s> <esc>:w<cr>
-
 " Make CtrlP use ag for listing the files. Way faster and no useless files.
 let g:ctrlp_user_command = 'ag %s -l --hidden --nocolor -g ""'
 let g:ctrlp_use_caching = 0
@@ -233,6 +222,18 @@ let g:go_info_mode='gopls'
 
 " clang-format config
 autocmd FileType c,cpp nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
-let g:clang_format#code_style="google"
+" let g:clang_format#code_style="google"
+let g:clang_format#style_options = {
+  \ "AccessModifierOffset" : -4,
+  \ "AllowShortIfStatementsOnASingleLine" : "true",
+  \ "AlwaysBreakTemplateDeclarations" : "true",
+  \ "Standard" : "C++11"}
+
+" Tip #42 from 'Practical Vim'
+" Type '%%' to expand to the path of the acitive buffer. 
+" Example:
+"     :e %%
+"     :sp %%
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
 filetype plugin indent on    " required
