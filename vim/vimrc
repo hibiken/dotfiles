@@ -17,6 +17,7 @@ Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'morhetz/gruvbox'
 Plugin 'cespare/vim-toml'
 Plugin 'rhysd/vim-clang-format'
+Plugin 'ycm-core/YouCompleteMe'
 call vundle#end()
 
 "=== Add Packages ===
@@ -67,6 +68,7 @@ set autowrite     " Automatically :write before running commands
 set autoread
 set number
 set numberwidth=5
+set pumheight=8   "Show at most 8 suggestions in popup
 
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.

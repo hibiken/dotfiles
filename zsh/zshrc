@@ -5,7 +5,7 @@ export ZSH=/Users/kenhibino/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="bira"
+ZSH_THEME="af-magic"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -46,6 +46,7 @@ ZSH_THEME="bira"
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# de
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
@@ -53,7 +54,7 @@ plugins=(rails git ruby bundler rake battery)
 
 # User configuration
 
-export PATH="/Library/Frameworks/Python.framework/Versions/3.5/bin:/Users/kenhibino/.rbenv/shims:/Users/kenhibino/.rbenv/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:~/.rbenv/shims:~/.rbenv/bin:/opt/X11/bin:`yarn global bin`"
+export PATH="/usr/local/opt/inetutils/libexec/gnubin:/Library/Frameworks/Python.framework/Versions/3.5/bin:/Users/kenhibino/.rbenv/shims:/Users/kenhibino/.rbenv/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:~/.rbenv/shims:~/.rbenv/bin:/opt/X11/bin:`yarn global bin`"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -82,12 +83,53 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# command `cdr` jumps to the root path of a git repository.
+alias cdr='cd $(git rev-parse --show-toplevel)'
+
+# v for vim (why not)
+alias v=vim
+
 export NODE_ENV=development
 
 export NVM_DIR="/Users/kenhibino/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
-# Go lang
+# Golang
 export PATH=$PATH:/usr/local/go/bin
 export GOPATH=$HOME/work
 export GOPATH=$HOME/go
+export PATH=$PATH:$(go env GOPATH)/bin
+
+# Elasticsearch
+export PATH="/usr/local/opt/elasticsearch@5.6/bin:$PATH"
+
+# RabbitMQ
+export PATH=$PATH:/usr/local/sbin
+
+# Kafka
+# export PATH=$PATH:/Users/kenhibino/kafka_2.13-2.5.0/bin
+
+# CDPATH
+export CDPATH=$GOPATH/src
+
+# Homebrew
+export HOMEBREW_NO_AUTO_UPDATE=1
+
+# fzf
+export FZF_DEFAULT_COMMAND="fd --type f --color=never --hidden"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_CTRL_T_OPTS="--preview 'bat --color=always --line-range :50 {}'"
+export FZF_ALT_C_COMMAND="fd --type d . --color=never --hidden"
+export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -n 50'"
+
+# MIT OS course (https://pdos.csail.mit.edu/6.828/2020/schedule.html)
+PATH=$PATH:/usr/local/opt/riscv-gnu-toolchain/bin
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/kenhibino/Desktop/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/kenhibino/Desktop/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/kenhibino/Desktop/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/kenhibino/Desktop/google-cloud-sdk/completion.zsh.inc'; fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
