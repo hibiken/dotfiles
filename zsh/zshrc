@@ -59,6 +59,9 @@ export PATH="/usr/local/opt/inetutils/libexec/gnubin:/Library/Frameworks/Python.
 
 source $ZSH/oh-my-zsh.sh
 
+# Run 256-color gruvbox palette shellscript
+source "$HOME/.vim/bundle/gruvbox/gruvbox_256palette.sh"
+
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
@@ -118,10 +121,14 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 
 # fzf
 export FZF_DEFAULT_COMMAND="fd --type f --color=never --hidden"
+export FZF_DEFAULT_OPTS="--no-height"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_T_OPTS="--preview 'bat --color=always --line-range :50 {}'"
 export FZF_ALT_C_COMMAND="fd --type d . --color=never --hidden"
 export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -n 50'"
+
+# bat
+export BAT_THEME=gruvbox-dark
 
 # MIT OS course (https://pdos.csail.mit.edu/6.828/2020/schedule.html)
 PATH=$PATH:/usr/local/opt/riscv-gnu-toolchain/bin
