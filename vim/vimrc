@@ -34,7 +34,7 @@ nmap <silent> <leader>h :nohlsearch<cr>
 nmap <leader>s :source $MYVIMRC<cr>
 nmap <silent> <leader>o :FzfFiles<cr>
 nmap <silent> <leader>O :FzfFiles!<cr>
-nmap <silent> <leader>gs :FzfGFiles?<cr>
+nmap <silent> <leader>gs :FzfGFiles!?<cr>
 
 " run :GoBuild or :GoTestCompile based on the go file
 function! s:build_go_files()
