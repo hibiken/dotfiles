@@ -2,25 +2,28 @@ set nocompatible              " be iMproved, required
 filetype off                  " required
 
 " === Plugins ===
-set rtp+=~/.vim/bundle/Vundle.vim " set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/fzf
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim' " let Vundle manage Vundle, required
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-commentary'
-Plugin 'tpope/vim-unimpaired'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'morhetz/gruvbox'
-Plugin 'cespare/vim-toml'
-Plugin 'rhysd/vim-clang-format'
-Plugin 'ycm-core/YouCompleteMe'
-Plugin 'junegunn/fzf'
-Plugin 'junegunn/fzf.vim'
-call vundle#end()
+" Automatic installation of vim-plug
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+call plug#begin()
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-unimpaired'
+Plug 'airblade/vim-gitgutter'
+Plug 'jiangmiao/auto-pairs'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'morhetz/gruvbox'
+Plug 'rhysd/vim-clang-format'
+Plug 'ycm-core/YouCompleteMe'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+call plug#end()
 
 "=== Add Packages ===
 packadd! matchit " :help matchit for more info
