@@ -20,9 +20,12 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'morhetz/gruvbox'
 Plug 'rhysd/vim-clang-format'
-Plug 'ycm-core/YouCompleteMe'
+" Plug 'ycm-core/YouCompleteMe'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'junegunn/goyo.vim'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries'  }
+Plug 'SirVer/ultisnips'
 call plug#end()
 
 "=== Add Packages ===
@@ -38,6 +41,7 @@ nmap <leader>s :source $MYVIMRC<cr>
 nmap <silent> <leader>o :FzfFiles<cr>
 nmap <silent> <leader>O :FzfFiles!<cr>
 nmap <silent> <leader>gs :FzfGFiles!?<cr>
+nmap <silent> <leader>z :Goyo<cr>
 
 " run :GoBuild or :GoTestCompile based on the go file
 function! s:build_go_files()
@@ -76,6 +80,9 @@ set autoread
 set number
 set numberwidth=5
 set pumheight=8   "Show at most 8 suggestions in popup
+set colorcolumn=80 " Vertical line at 80 char
+set mouse=        " Disable mouse interactions
+set ttymouse=
 
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
@@ -135,12 +142,14 @@ augroup filetypedetect
   autocmd BufNewFile,BufRead *.sh setlocal ts=2 sts=2 sw=2 expandtab
   autocmd BufNewFile,BufRead *.proto setlocal ts=2 sts=2 sw=2 expandtab
   autocmd BufNewFile,BufRead *.jsx setlocal ts=2 sts=2 sw=2 expandtab
+  autocmd BufNewFile,BufRead *.c,*.h setlocal ts=2 sts=2 sw=2 expandtab
 
   autocmd FileType json setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType ruby setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType sql setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType java setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType go setlocal ts=4 sts=4 sw=4 noexpandtab
+  autocmd FileType c setlocal ts=2 sts=2 sw=2 noexpandtab
   autocmd FileType cpp setlocal ts=2 sts=2 sw=2 noexpandtab
   autocmd Filetype javascript setlocal ts=2 sts=2 sw=2 expandtab
 augroup END
@@ -232,6 +241,12 @@ nnoremap <leader>= :wincmd =<cr>
 let g:fzf_command_prefix = 'Fzf'
 let $FZF_DEFAULT_COMMAND = 'fd --type f'
 
+" === Code Snippets ===
+let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/UltiSnips']
+let g:UltiSnipsExpandTrigger="<c-l>"
+let g:UltiSnipsJumpForwardTrigger="<c-l>"
+let g:UltiSnipsJumpBackwardTrigger="<c-h>"
+
 " vim-go config
 " format with goimports instead of gofmt
 let g:go_fmt_command = "goimports"
@@ -253,5 +268,8 @@ let g:clang_format#style_options = {
 "     :e %%
 "     :sp %%
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
+
+" === cscope ===
+source ~/code/config/dotfiles/vim/cscope_maps.vim
 
 filetype plugin indent on    " required
