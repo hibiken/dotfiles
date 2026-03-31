@@ -18,14 +18,16 @@ Plug 'tpope/vim-unimpaired'
 Plug 'airblade/vim-gitgutter'
 Plug 'jiangmiao/auto-pairs'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'morhetz/gruvbox'
 Plug 'rhysd/vim-clang-format'
 " Plug 'ycm-core/YouCompleteMe'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/goyo.vim'
+Plug 'junegunn/seoul256.vim'
+"Plug 'morhetz/gruvbox'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries'  }
 Plug 'SirVer/ultisnips'
+Plug 'justinmk/vim-syntax-extra'
 call plug#end()
 
 "=== Add Packages ===
@@ -200,7 +202,10 @@ syntax enable
 set t_Co=256
 set background=dark
 let g:rehash256 = 1
-colorscheme gruvbox
+let g:seoul256_background = 235
+colorscheme seoul256
+highlight Todo ctermbg=NONE guibg=NONE ctermfg=Red guifg=#d75f87
+highlight ColorColumn ctermbg=236 guibg=#303030
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
 "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
 "(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
@@ -252,6 +257,37 @@ let g:UltiSnipsJumpBackwardTrigger="<c-h>"
 let g:go_fmt_command = "goimports"
 let g:go_def_mode='godef'
 let g:go_info_mode='gopls'
+let g:go_version_warning=0
+
+" === Goyo ===
+function! s:goyo_enter()
+  if exists(':GitGutterDisable')
+    GitGutterDisable
+  endif
+
+  " UI Cleanup
+  set noshowcmd      " Hide partial commands
+  set laststatus=0   " Hide the status line
+  set nonumber       " Hide line numbers
+endfunction
+
+function! s:goyo_leave()
+  if exists(':GitGutterEnable')
+    GitGutterEnable
+  endif
+
+  " Restore UI
+  set showcmd
+  set laststatus=2   " Bring back status line
+  set number         " Bring back line numbers (if you use them)
+
+  " Fix color column
+  highlight ColorColumn ctermbg=236 guibg=#303030
+endfunction
+
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
+
 
 " clang-format config
 autocmd FileType c,cpp nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
